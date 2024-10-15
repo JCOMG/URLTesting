@@ -31,6 +31,15 @@ def generate_short_url(length=6):
 
     return short_url
 
+
+@app.route('/health', methods=['GET', 'POST'])
+def health():
+    return "ok"
+
+@app.route('/')
+def index():
+    return jsonify({"message": "Welcome ~"}), 200
+
 @app.route('/shorten', methods=['POST'])
 def shorten_url():
     data = request.get_json()
@@ -63,5 +72,6 @@ def redirect_to_original(short_url):
     else:
         return jsonify({"error": "URL not found"}), 404
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
