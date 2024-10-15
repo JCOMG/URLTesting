@@ -3,18 +3,24 @@ import random
 from flask import Flask, redirect, request, jsonify
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from flask import g
 
 uri = "mongodb+srv://jimmy1999928:jSY6uCyvNr1aayCs@testing.s9jl8.mongodb.net/?retryWrites=true&w=majority&appName=Testing"
 
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
 
-db = client['shortener_db']
-collection = db['urls']
+# Create a new client and connect to the server
+def get_db():
+    if 'db' not in g:
+        g.client = MongoClient(uri, server_api=ServerApi('1'))
+        g.db = g.client['shortener_db']
+        g.collection = g.db['urls']
+
+    return g.collection
+
 
 # Send a ping to confirm a successful connection
 try:
-    client.admin.command('ping')
+    g.client.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
@@ -36,12 +42,16 @@ def generate_short_url(length=6):
 def health():
     return "ok"
 
+
 @app.route('/')
 def index():
     return jsonify({"message": "Welcome ~"}), 200
 
+
 @app.route('/shorten', methods=['POST'])
 def shorten_url():
+    collection = get_db()
+
     data = request.get_json()
 
     original_url = data.get('original_url')
@@ -66,6 +76,7 @@ def shorten_url():
 
 @app.route('/<short_url>')
 def redirect_to_original(short_url):
+    collection = get_db()
     url_entry = collection.find_one({"short_url": short_url})
     if url_entry:
         return redirect(url_entry['original_url'])
