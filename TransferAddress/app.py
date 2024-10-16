@@ -4,14 +4,17 @@ from flask import Flask, redirect, request, jsonify
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from flask import g
+from dotenv import load_dotenv
+import os
 
-uri = "mongodb+srv://jimmy1999928:jSY6uCyvNr1aayCs@testing.s9jl8.mongodb.net/?retryWrites=true&w=majority&appName=Testing"
 
+load_dotenv()
 
-# Create a new client and connect to the server
+mongodb_uri = os.getenv('MONGODB_URI')
+
 def get_db():
     if 'db' not in g:
-        g.client = MongoClient(uri, server_api=ServerApi('1'))
+        g.client = MongoClient(mongodb_uri, server_api=ServerApi('1'))
         g.db = g.client['shortener_db']
         g.collection = g.db['urls']
 
