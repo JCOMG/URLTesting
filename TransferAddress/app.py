@@ -11,6 +11,7 @@ import os
 load_dotenv()
 
 mongodb_uri = os.getenv('MONGODB_URI')
+print(f"MongoDB URI: {mongodb_uri}")
 
 def get_db():
     if 'db' not in g:
