@@ -9,6 +9,7 @@ import os
 import unittest
 import pymongo
 
+
 load_dotenv()
 # Mongo DB is a NoSQL database
 mongodb_uri = os.getenv('MONGODB_URI')
