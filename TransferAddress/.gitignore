@@ -1,5 +1,5 @@
 .vercel
 .env
-.Dockerfile
-.compose.yml
-.app_unit_test.py
+Dockerfile
+compose.yml
+app_unit_test.py
