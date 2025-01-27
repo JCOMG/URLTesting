@@ -10,27 +10,52 @@ import unittest
 import pymongo
 
 
+from pymongo.mongo_client import MongoClient
+
 load_dotenv()
-# Mongo DB is a NoSQL database
+
+# 從環境變量中獲取 MongoDB URI
 mongodb_uri = os.getenv('MONGODB_URI')
-print(f"MongoDB URI: {mongodb_uri}")
 
+# 創建 MongoDB 客戶端
+client = MongoClient(mongodb_uri)
 
+# 測試連接
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(f"Failed to connect to MongoDB: {e}")
+
+# 獲取數據庫和集合的函數
 def get_db():
     if 'db' not in g:
-        g.client = MongoClient(mongodb_uri)
-        g.db = g.client['shortener_db']
-        g.collection = g.db['urls']  # Similar to the Table in SQL
-
+        g.db = client['shortener_db']  # 替換為你的數據庫名稱
+        g.collection = g.db['urls']   # 替換為你的集合名稱（類似於 SQL 中的表）
     return g.collection
 
 
+# load_dotenv()
+# # Mongo DB is a NoSQL database
+# mongodb_uri = os.getenv('MONGODB_URI')
+# print(f"MongoDB URI: {mongodb_uri}")
+#
+#
+# def get_db():
+#     if 'db' not in g:
+#         g.client = MongoClient(client)
+#         g.db = g.client['shortener_db']
+#         g.collection = g.db['urls']  # Similar to the Table in SQL
+#
+#     return g.collection
+
+
 # Send a ping to confirm a successful connection
-try:
-    g.client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+# try:
+#     g.client.admin.command('ping')
+#     print("Pinged your deployment. You successfully connected to MongoDB!")
+# except Exception as e:
+#     print(e)
 
 app = Flask(__name__)
 
