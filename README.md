@@ -14,7 +14,6 @@ curl -X POST http://127.0.0.1:5000/shorten -H "Content-Type: application/json" -
 
 ## Demo in Heroku
 ```  https://urltesting-heroku-87b2c8548b48.herokuapp.com/
-```
 
 ## Tech Stack
 - RESTful API
