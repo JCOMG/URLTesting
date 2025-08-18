@@ -1,6 +1,6 @@
 # URLTesting
 
-This is a service to transfer long address to short address with Python, Flask, MongoDB Cloud, Docker, Heroku and RESTful API.
+This is a service to transfer long address to short address with Python, Flask, MongoDB Cloud, Heroku and RESTful API.
 
 
 ## Features
