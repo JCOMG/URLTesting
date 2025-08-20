@@ -2,7 +2,6 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from ..app import app as flask_app   # ← 重點：相對匯入
 from URLTesting.app import app as flask_app
 
 
