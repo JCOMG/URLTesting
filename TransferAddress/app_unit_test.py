@@ -5,7 +5,7 @@ from unittest.mock import patch, Mock
 from URLTesting.app import app as flask_app
 
 
-@patch('URLTesting.app.get_db', create=True)
+# @patch('URLTesting.app.get_db', create=True)
 # class TestShortener(unittest.TestCase):
 #     def setUp(self, mock_get_db):
 #         self.client = flask_app.test_client()
