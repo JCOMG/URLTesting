@@ -27,3 +27,18 @@ jobs:
     - name: Run unit tests
       run: |
         python -m unittest discover -s . -p "*_test.py"
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'  # 只在 main 的 push 執行
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}   # 你的 Heroku app 名稱
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: false

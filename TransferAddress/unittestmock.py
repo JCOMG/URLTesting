@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch, MagicMock, Mock
-from app import app
+# from app import app
+from .. import app   # 使用相對路徑
+
 from unittest import TestCase
 
 
