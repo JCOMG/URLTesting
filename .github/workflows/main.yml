@@ -11,7 +11,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      PYTHONPATH: ${{ github.workspace }}
+      PYTHONPATH: ${{ github.workspace }}/..   
     steps:
       - uses: actions/checkout@v4
 
@@ -28,18 +28,22 @@ jobs:
         run: |
           python -m unittest URLTesting.TransferAddress.app_unit_test
 
-
       - name: Debug tree & path
         run: |
-          pwd
+          echo "PWD = $(pwd)"
+          echo "--- repo root ---"
           ls -la
+          echo "--- URLTesting ---"
           ls -la URLTesting || true
+          echo "--- TransferAddress ---"
           ls -la URLTesting/TransferAddress || true
           python - <<'PY'
-          import sys, os
+          import sys, os, importlib
           print("PYTHONPATH =", os.environ.get("PYTHONPATH"))
           print("sys.path[0] =", sys.path[0])
-          import importlib
-          m = importlib.import_module("URLTesting.app")
-          print("Imported:", m)
+          try:
+              m = importlib.import_module("URLTesting.app")
+              print("Imported OK:", m)
+          except Exception as e:
+              print("Import failed:", e)
           PY
