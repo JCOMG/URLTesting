@@ -1,8 +1,12 @@
 # tests/test_app.py
 import unittest
 from unittest.mock import patch, Mock
+import os, sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from URLTesting.app import app as flask_app
+
 
 class TestShortener(unittest.TestCase):
     def setUp(self):
