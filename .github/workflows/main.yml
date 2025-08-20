@@ -26,7 +26,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          python -m unittest discover -s TransferAddress -p "*_test.py" -t .
+          python -m unittest discover -s URLTesting/TransferAddress -p "*_test.py" -t .
 
       - name: Debug tree & path
         run: |
