@@ -4,7 +4,6 @@ from unittest.mock import patch, Mock
 
 from URLTesting.app import app as flask_app
 
-
 class TestShortener(unittest.TestCase):
     def setUp(self):
         self.client = flask_app.test_client()
