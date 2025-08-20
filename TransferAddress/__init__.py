@@ -2,6 +2,7 @@ import os
 from flask import Flask
 
 app = Flask(__name__)
+__all__ = ["app"]
 app.config['SECRET_KEY'] = b'WR#&f&+%78er0we=%799eww+#7^90-;s'
 
 basedir = os.path.abspath(os.path.dirname(__file__))
